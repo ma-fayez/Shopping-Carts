@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Cart</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <section>
+        <div class="container">
+            <div class="cart">
+                <div class="col-md-12 col-lg-10 mx-auto">
+                    <h1 class="text-center mb-5">Shopping Cart</h1>
+                    <div class="cart-item">
+                        <div class="row">
+                            <div class="col-md-7 center-item">
+                                <img src="images/product-1.png" alt="">
+                                <h5>iPhone 11 128GB Black</h5>
+                            </div>
+
+                            <div class="col-md-5 center-item">
+                                <div class="input-group number-spinner">
+                                    <button class="btn btn-default" id="RemoveMobile"><i
+                                            class="fas fa-minus"></i></button>
+                                    <input type="text" class="form-control text-center" value="1" id="MobileValue">
+                                    <button class="btn btn-default" id="AddMobile"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <h5>$<span id="MobilePrice">1219</span></h5>
+                                <img src="images/remove.png" alt="" class="remove-item" id="RemoveProduct">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="row">
+                            <div class="col-md-7 center-item mx-auto">
+                                <img src="images/product-2.png" alt="">
+                                <h5>iPhone 11 Silicone Case - Black</h5>
+                            </div>
+                            <div class="col-md-5 center-item">
+                                <div class="input-group number-spinner">
+                                    <button class="btn btn-default" id="RemoveCover"><i
+                                            class="fas fa-minus"></i></button>
+                                    <input type="text" class="form-control text-center" value="1" id="CoverValue">
+                                    <button class="btn btn-default" id="AddCover"><i class="fas fa-plus"></i></button>
+
+                                </div>
+                                <h5>$<span id="CoverPrice">59</span> </h5>
+                                <img src="images/remove.png" alt="" class="remove-item" id="RemoveCase">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <h5>Subtotal: </h5>
+                                <h5>Tax:</h5>
+                                <h5>Total:</h5>
+                            </div>
+
+                            <div class="col-md-4 status">
+                                <h5>$<span id="SubtotalValue">1,278</span></h5>
+                                <h5>$<span id="TaxValue">0</span></h5>
+                                <h5>$<span id="TotalValue">1,278</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-4 pb-4">
+                        <button type="button" class="btn btn-success check-out">Check Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        var MobilePrice = document.getElementById("MobilePrice").innerText;
+        var CoverPrice = document.getElementById("CoverPrice").innerText;
+
+        //   var ConvertMobilePrices = parseFloat(MobilePrice);
+        //   var ConvertCoverPrices = parseFloat(MobilePrice)
+
+        var subtotal = document.getElementById("SubtotalValue").innerText = parseFloat(MobilePrice) + parseFloat(CoverPrice);
+        var total = document.getElementById("TotalValue").innerText = parseFloat(MobilePrice) + parseFloat(CoverPrice);
+
+        var MobilePrices = MobilePrice;
+        var CoverPrices = CoverPrice;
+        var Subtotal = subtotal;
+        var Total = total;
+
+        // AddMobile & Mobile Price
+        const AddMobile = document.getElementById("AddMobile");
+        AddMobile.addEventListener("click", function() {
+
+            document.getElementById("MobilePrice").innerText = 1219;
+            const MobileValue = document.getElementById("MobileValue");
+            const IncreaseMobile = MobileValue.value++;
+            const ConvertMobileNumber = parseFloat(IncreaseMobile);
+
+            const MobilePrice = document.getElementById("MobilePrice").innerText;
+            const ConvertMobilePrice = parseFloat(MobilePrice);
+
+            // const OnlyTotalMobilePrice = ConvertMobilePrice * (ConvertMobileNumber + 1);
+            MobilePrices = ConvertMobilePrice * (ConvertMobileNumber + 1);
+
+            document.getElementById("MobilePrice").innerText = MobilePrices;
+
+            document.getElementById("SubtotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+            document.getElementById("TotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+
+        })
+
+
+
+        // RemoveMobile & Mobile Price
+        const RemoveMobile = document.getElementById("RemoveMobile");
+        RemoveMobile.addEventListener("click", function() {
+
+            document.getElementById("MobilePrice").innerText = 1219;
+            const MobileValue = document.getElementById("MobileValue");
+            const DecreaseMobile = MobileValue.value--;
+            const ConvertMobileNumber = parseFloat(DecreaseMobile);
+            if (ConvertMobileNumber <= 0) {
+                alert("Invalid Selection");
+                MobileValue.value = 0;
+                document.getElementById("MobilePrice").innerText = 0;
+
+            } else {
+                const MobilePrice = document.getElementById("MobilePrice").innerText;
+                const ConvertMobilePrice = parseFloat(MobilePrice);
+
+                MobilePrices = ConvertMobilePrice * (ConvertMobileNumber - 1);
+
+                document.getElementById("MobilePrice").innerText = MobilePrices;
+
+                document.getElementById("SubtotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+                document.getElementById("TotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+
+            }
+        })
+
+        // AddCover & Cover Price
+        const AddCover = document.getElementById("AddCover");
+        AddCover.addEventListener("click", function() {
+
+            document.getElementById("CoverPrice").innerText = 59;
+            const CoverValue = document.getElementById("CoverValue");
+            const IncreaseCover = CoverValue.value++;
+            const ConvertCoverNumber = parseFloat(IncreaseCover);
+
+            const CoverPrice = document.getElementById("CoverPrice").innerText;
+            const ConvertCoverPrice = parseFloat(CoverPrice);
+
+            CoverPrices = ConvertCoverPrice * (ConvertCoverNumber + 1);
+
+            document.getElementById("CoverPrice").innerText = CoverPrices;
+
+            document.getElementById("SubtotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+            document.getElementById("TotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+
+        })
+
+        // RemoveCover & Cover Price
+        const RemoveCover = document.getElementById("RemoveCover");
+        RemoveCover.addEventListener("click", function() {
+
+            document.getElementById("CoverPrice").innerText = 59;
+            const CoverValue = document.getElementById("CoverValue");
+            const IncreaseCover = CoverValue.value--;
+            const ConvertCoverNumber = parseFloat(IncreaseCover);
+            if (ConvertCoverNumber <= 0) {
+                alert("Invalid Selection of cover");
+                CoverValue.value = 0;
+                document.getElementById("CoverPrice").innerText = 0;
+
+            } else {
+                const CoverPrice = document.getElementById("CoverPrice").innerText;
+                const ConvertCoverPrice = parseFloat(CoverPrice);
+
+                CoverPrices = ConvertCoverPrice * (ConvertCoverNumber - 1);
+
+                document.getElementById("CoverPrice").innerText = CoverPrices;
+
+                document.getElementById("SubtotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+                document.getElementById("TotalValue").innerText = parseFloat(MobilePrices) + parseFloat(CoverPrices);
+            }
+        })
+
+        // Remove Products & Case
+        const RemoveProduct = document.getElementById("RemoveProduct");
+        RemoveProduct.addEventListener("click", function() {
+
+            MobileValue.value = 0;
+            document.getElementById("MobilePrice").innerText = 0;
+            //=======================
+
+            document.getElementById("CoverPrice").innerText = 59;
+            const CoverValue = document.getElementById("CoverValue");
+            const IncreaseCover = CoverValue.value;
+            const ConvertCoverNumber = parseFloat(IncreaseCover);
+
+            const CoverPrice = document.getElementById("CoverPrice").innerText;
+            const ConvertCoverPrice = parseFloat(CoverPrice);
+
+            CoverPrices = ConvertCoverPrice * ConvertCoverNumber;
+
+            document.getElementById("CoverPrice").innerText = CoverPrices;
+
+            document.getElementById("SubtotalValue").innerText = CoverPrices;
+            document.getElementById("TotalValue").innerText = CoverPrices;
+
+        })
+
+        //=================================================================
+
+        const RemoveCase = document.getElementById("RemoveCase");
+        RemoveCase.addEventListener("click", function() {
+
+            CoverValue.value = 0;
+            document.getElementById("CoverPrice").innerText = 0;
+            //=======================
+
+            document.getElementById("MobilePrice").innerText = 1219;
+            const MobileValue = document.getElementById("MobileValue");
+            const IncreaseMobile = MobileValue.value;
+            const ConvertMobileNumber = parseFloat(IncreaseMobile);
+
+            const MobilePrice = document.getElementById("MobilePrice").innerText;
+            const ConvertMobilePrice = parseFloat(MobilePrice);
+
+            MobilePrices = ConvertMobilePrice * ConvertMobileNumber;
+
+            document.getElementById("MobilePrice").innerText = MobilePrices;
+
+            document.getElementById("SubtotalValue").innerText = MobilePrices;
+            document.getElementById("TotalValue").innerText = MobilePrices;
+        })
+    </script>
+</body>
+
+</html>
